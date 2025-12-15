@@ -11,6 +11,7 @@ app.use(cors({
 app.use(express.json());
 
 
+
 let dbConnect = require("./dbConnect");
 
  
@@ -18,12 +19,15 @@ const bookSeed = require("./src/Seed/bookSeed");
 bookSeed();
 const booksRoutes = require("./src/Routes/booksRoutes");
 const cartRoutes = require("./src/Routes/cartRoutes");
+const checkoutRoutes = require("./src/Routes/checkoutRoutes");
+
+app.use("/images", express.static("./public/images"));
 
 const port = 5050;
 
-app.use("/", express.static("./public"));
 app.use("/api/books", booksRoutes);  
 app.use("/api/cart", cartRoutes);
+app.use("/api/checkout", checkoutRoutes);
 
 app.listen(port, () => {
   console.log("server is up");

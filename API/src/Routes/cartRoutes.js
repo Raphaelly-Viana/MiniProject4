@@ -12,11 +12,20 @@ router.post("/add", async (req, res) => {
     cart = new Cart({ items: [] });
   }
 
+  const existingItem = cart.items.find(
+    (item) => item.bookId.toString() === book._id
+  );
+
+  if (existingItem) {
+    existingItem.quantity += 1;
+  } else {
   cart.items.push({
     bookId: book._id,
     title: book.title,
-    price: book.price
+    price: book.price,
+    quantity: 1
   });
+}
 
   await cart.save();
 

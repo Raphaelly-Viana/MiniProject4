@@ -74,6 +74,21 @@ const loadCart = async () => {
   }
 };
 
+const likeBook = async (id) => {
+  const res = await axios.post(`/api/books/${id}/like`);
+  setBooks((prev) =>
+    prev.map((b) => (b._id === id ? res.data : b))
+  );
+};
+
+const addComment = async (id, text) => {
+  const res = await axios.post(`/api/books/${id}/comment`, { text });
+  setBooks((prev) =>
+    prev.map((b) => (b._id === id ? res.data : b))
+  );
+};
+
+  
   return (
     <BookContext.Provider
       value={{
@@ -86,9 +101,11 @@ const loadCart = async () => {
         updateBook,
         deleteBook,
         addToCart,
+        likeBook,
+        addComment,
       }}
     >
       {children}
     </BookContext.Provider>
   );
-}
+};

@@ -8,6 +8,14 @@ const BookSchema = new Schema({
   year: { type: Number, required: false }, // year is optional
  price: { type: Number, required: true },
   deleted: { type: Boolean, default: false }, 
+ likes: {    type: Number,     default: 0   },
 
+  comments: [
+    {
+      text: { type: String, required: true },
+      createdAt: {   type: Date,  default: Date.now       }
+    }
+  ]
 });
+
 module.exports = mongoose.model("Book", BookSchema);

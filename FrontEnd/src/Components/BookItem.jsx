@@ -3,9 +3,9 @@ import { BookContext } from "../Context/BookContext";
 import { CartContext } from "../Context/CartContext";
 
 export default function BookItem({ book }) {
-  const { updateBook, deleteBook } = useContext(BookContext);
+  const { updateBook, deleteBook, addComment, likeBook  } = useContext(BookContext);
   const { addToCart } = useContext(CartContext);
-
+    const [comment, setComment] = useState("");
   const [editMode, setEditMode] = useState(false);
 
   const [form, setForm] = useState({
@@ -39,6 +39,8 @@ export default function BookItem({ book }) {
           />
           <input name="image" value={form.image} onChange={handleChange} />
 
+         
+
           <button
             onClick={() => {
               updateBook(book._id, form);
@@ -49,6 +51,7 @@ export default function BookItem({ book }) {
           </button>
 
           <button onClick={() => setEditMode(false)}>Cancel</button>
+
         </>
       ) : (
         // Same as if / else
@@ -64,14 +67,44 @@ export default function BookItem({ book }) {
           <p>${book.price}</p>
           <p>Category: {book.category}</p>
 
+          <button onClick={() => likeBook(book._id)}>❤️ {book.likes}</button>
+
+          <div style={{ marginTop: "10px" }}>
+            <input
+              type="text"
+              placeholder="Write a comment..."
+              value={comment}
+              onChange={(e) => setComment(e.target.value)}
+            />
+
+            <button
+  onClick={() => {
+    if (!comment.trim()) return; 
+    addComment(book._id, comment);
+    setComment("");
+  }}
+>
+  Add Comment
+</button>
+          </div>
+
+     {book.comments?.map((c, index) => (
+  <li key={index}>
+    {c.text}
+    <small style={{ marginLeft: "8px", color: "#777" }}>
+      ({new Date(c.createdAt).toLocaleDateString()})
+    </small>
+  </li>
+))}
+
           <button
             onClick={() => {
-              console.log("Adding ro cart:", book);
               addToCart(book);
             }}
           >
-            Add to Cart{" "}
+            Add to Cart
           </button>
+
           <button onClick={() => setEditMode(true)}>Edit</button>
           <button onClick={() => deleteBook(book._id)}>Delete</button>
         </>

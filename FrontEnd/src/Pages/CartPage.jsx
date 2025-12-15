@@ -1,6 +1,7 @@
 import { useContext } from "react";
 import { CartContext } from "../Context/CartContext";
 import CartList from "../Components/CartList";
+import { Link } from "react-router-dom";
 
 export default function CartPage() {
   const { cart } = useContext(CartContext);
@@ -9,6 +10,9 @@ export default function CartPage() {
     <div className="container">
       <h1>Your Cart</h1>
       <CartList items={cart.items} />
+      <Link to="/checkout">
+        <button>Go to Checkout</button>
+      </Link>
     </div>
   );
 }
