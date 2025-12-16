@@ -29,20 +29,19 @@ function BookList() {
     <div>
       <h2>Books</h2>
 
-      {/* Search bar */}
-      <input
-        type="text"
-        placeholder="Search title or author..."
-        value={searchQuery}
-        onChange={(e) => setSearchQuery(e.target.value)}
-        style={{ padding: "8px", width: "250px", marginRight: "10px" }}
-      />
+      {/* Filters */}
+      <div className="filters">
+        <input
+          type="text"
+          placeholder="Search title or author..."
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
+        />
 
-      {/* Category filter */}
       <select
         value={categoryFilter}
         onChange={(e) => setCategoryFilter(e.target.value)}
-        style={{ padding: "8px" }}
+       
       >
         {categories.map((cat, i) => (
           <option key={i} value={cat}>
@@ -50,8 +49,9 @@ function BookList() {
           </option>
         ))}
       </select>
+      </div>
 
-      {/* List of books */}
+      {/* Grid */}
       <div>
         {filteredBooks.length === 0 && <p>No books found.</p>}
 

@@ -27,8 +27,20 @@ export function CartProvider({ children }) {
     }
   };
 
+  const removeFromCart = async (bookId) => {
+    try {
+      const res = await axios.post("/api/cart/remove", {
+        bookId,
+      });
+
+      setCart(res.data);
+    } catch (error) {
+      console.error("Error removing from cart:", error);
+    }
+  };
+
   return (
-    <CartContext.Provider value={{ cart, addToCart }}>
+    <CartContext.Provider value={{ cart, addToCart, removeFromCart }}>
       {children}
     </CartContext.Provider>
   );

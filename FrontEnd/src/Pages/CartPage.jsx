@@ -3,7 +3,7 @@ import { CartContext } from "../Context/CartContext";
 import CartList from "../Components/CartList";
 import { Link } from "react-router-dom";
 
-export default function CartPage() {
+ function CartPage() {
   const { cart } = useContext(CartContext);
 
   return (
@@ -16,3 +16,5 @@ export default function CartPage() {
     </div>
   );
 }
+
+export default CartPage

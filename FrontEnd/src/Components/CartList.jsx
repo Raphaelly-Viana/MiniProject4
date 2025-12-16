@@ -1,20 +1,24 @@
 import CartItem from "./CartItem";
-import { useContext } from "react";
-import { BookContext } from "../Context/BookContext";
 
-export default function CartList() {
-  const { cart } = useContext(BookContext);
-  console.log(cart)
+ function CartList({ items }) {
+  console.log("CART:", items);
+
+   if (!items || items.length === 0) {
+    return <p>Your cart is empty</p>;
+  }
 
   return (
     <div>
       <h2>Your Cart</h2>
 
-      {cart.length === 0 && <p>Your cart is empty</p>}
-
-      {cart.map((item,index) => (
-       <CartItem key={Math.random()} item={item} />
+      {items.map((item, index) => (
+        <CartItem
+          key={item.book_id || index}
+          item={item}
+        />
       ))}
     </div>
   );
 }
+
+export default CartList

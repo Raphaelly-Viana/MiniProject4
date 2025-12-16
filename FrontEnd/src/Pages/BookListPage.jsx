@@ -1,11 +1,12 @@
 import BookList from "../Components/bookList";
 
-export default function BookListPage() {
+ function BookListPage() {
   return (
-    <div className="container">
-      <h1>Book Store</h1>
-
+    <div className="page-container">
+            <p className="page-subtitle">Our Collection</p>
       <BookList />
     </div>
   );
 }
+
+export default BookListPage

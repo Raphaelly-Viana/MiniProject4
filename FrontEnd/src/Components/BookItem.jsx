@@ -3,7 +3,7 @@ import { BookContext } from "../Context/BookContext";
 import { CartContext } from "../Context/CartContext";
 import { AuthContext } from "../Context/AuthContext";
 
-export default function BookItem({ book }) {
+function BookItem({ book }) {
   const { updateBook, deleteBook, addComment, likeBook } =
     useContext(BookContext);
   const { addToCart } = useContext(CartContext);
@@ -22,9 +22,10 @@ export default function BookItem({ book }) {
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
-
+ 
+  console.log(book.image)
   return (
-    <div className="book-item">
+    <div className="book-card">
       {editMode ? (
         <>
           <input name="title" value={form.title} onChange={handleChange} />
@@ -114,7 +115,7 @@ export default function BookItem({ book }) {
           </button>
 
           {/* Admin only */}
-          {user?.isAdmin && (
+          {user?.isAdmin &&  !editMode && (
             <>
               <button onClick={() => setEditMode(true)}>Edit</button>
               <button onClick={() => deleteBook(book._id)}>Delete</button>
@@ -125,3 +126,5 @@ export default function BookItem({ book }) {
     </div>
   );
 }
+
+export default BookItem;
